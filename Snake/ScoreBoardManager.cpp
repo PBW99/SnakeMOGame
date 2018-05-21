@@ -1,4 +1,4 @@
-#include "SnakePCH.h."
+#include "SnakePCH.h"
 
 std::unique_ptr< ScoreBoardManager >	ScoreBoardManager::sInstance;
 
@@ -28,11 +28,12 @@ mColor( inColor )
 
 void ScoreBoardManager::Entry::SetScore( int32_t inScore )
 {
-	mScore = inScore;
-
-	char	buffer[ 256 ];
-	_snprintf_s( buffer, 256, "%s %i", mPlayerName.c_str(), mScore );
-	mFormattedNameScore = string( buffer );
+    // TODO(Deprecated
+//	mScore = inScore;
+//
+//	char	buffer[ 256 ];
+//	_snprintf_s( buffer, 256, "%s %i", mPlayerName.c_str(), mScore );
+//	mFormattedNameScore = string( buffer );
 
 }
 

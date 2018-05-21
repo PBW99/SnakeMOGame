@@ -1,9 +1,20 @@
 #include "SnakePCH.h"
 
+#if _WIN32
+//
+Windows
+	LARGE_INTEGER perfFreq;
+	QueryPerformanceFrequency( &perfFreq );
+	mPerfCountDuration = 1.0 / perfFreq.QuadPart;
+
+	QueryPerformanceCounter( &sStartTime );
+
+	mLastFrameStartTime = GetTime();
+
 HANDLE hConsole;
 
 //-------------------------------------------------------------
-// ÀÌ·¸°Ô ¾¹´Ï´Ù.
+// ï¿½Ì·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï´ï¿½.
 //
 // #incude <stdio.h>
 // #include <windows.h>
@@ -13,16 +24,16 @@ HANDLE hConsole;
 // {
 //		cs_Initial();
 //
-//		cs_MoveCursor(0, 0);	// Ä¿¼­¸¦ 0, 0 À§Ä¡·Î
-//		printf("abcde");		// 0, 0 À§Ä¡¿¡ ±Û¾¾¸¦ ÂïÀ½
-//		cs_MoveCursor(20, 10);	// Ä¿¼­¸¦ 20, 10 À§Ä¡·Î
-//		printf("abcde");		// 0, 0 À§Ä¡¿¡ ±Û¾¾¸¦ ÂïÀ½
+//		cs_MoveCursor(0, 0);	// Ä¿ï¿½ï¿½ï¿½ï¿½ 0, 0 ï¿½ï¿½Ä¡ï¿½ï¿½
+//		printf("abcde");		// 0, 0 ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½Û¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+//		cs_MoveCursor(20, 10);	// Ä¿ï¿½ï¿½ï¿½ï¿½ 20, 10 ï¿½ï¿½Ä¡ï¿½ï¿½
+//		printf("abcde");		// 0, 0 ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½Û¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 //
 // }
 //-------------------------------------------------------------
 
 //-------------------------------------------------------------
-// ÄÜ¼Ö Á¦¾î¸¦ À§ÇÑ ÁØºñ ÀÛ¾÷.
+// ï¿½Ü¼ï¿½ ï¿½ï¿½ï¿½î¸¦ ï¿½ï¿½ï¿½ï¿½ ï¿½Øºï¿½ ï¿½Û¾ï¿½.
 //
 //-------------------------------------------------------------
 void cs_Initial(void)
@@ -30,21 +41,21 @@ void cs_Initial(void)
 	CONSOLE_CURSOR_INFO stConsoleCursor;
 
 	//-------------------------------------------------------------
-	// È­¸éÀÇ Ä¿¼­¸¦ ¾Èº¸ÀÌ°Ô²û ¼³Á¤ÇÑ´Ù.
+	// È­ï¿½ï¿½ï¿½ï¿½ Ä¿ï¿½ï¿½ï¿½ï¿½ ï¿½Èºï¿½ï¿½Ì°Ô²ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 	//-------------------------------------------------------------
 	stConsoleCursor.bVisible = FALSE;
-	stConsoleCursor.dwSize = 1; // Ä¿¼­ Å©±â.
-	// ÀÌ»óÇÏ°Ôµµ 0 ÀÌ¸é ³ª¿Â´Ù. 1·ÎÇÏ¸é ¾È³ª¿Â´Ù.
+	stConsoleCursor.dwSize = 1; // Ä¿ï¿½ï¿½ Å©ï¿½ï¿½.
+	// ï¿½Ì»ï¿½ï¿½Ï°Ôµï¿½ 0 ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½Â´ï¿½. 1ï¿½ï¿½ï¿½Ï¸ï¿½ ï¿½È³ï¿½ï¿½Â´ï¿½.
 
 	//-------------------------------------------------------------
-	// ÄÜ¼ÖÈ­¸é (½ºÅÙ´Ùµå ¾Æ¿ôÇ²) ÇÚµéÀ» ±¸ÇÑ´Ù.
+	// ï¿½Ü¼ï¿½È­ï¿½ï¿½ (ï¿½ï¿½ï¿½Ù´Ùµï¿½ ï¿½Æ¿ï¿½Ç²) ï¿½Úµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ñ´ï¿½.
 	//-------------------------------------------------------------
 	hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	SetConsoleCursorInfo(hConsole, &stConsoleCursor);
 }
 
 //-------------------------------------------------------------
-// ÄÜ¼Ö È­¸éÀÇ Ä¿¼­¸¦ X, Y ÁÂÇ¥·Î ÀÌµ¿½ÃÅ²´Ù.
+// ï¿½Ü¼ï¿½ È­ï¿½ï¿½ï¿½ï¿½ Ä¿ï¿½ï¿½ï¿½ï¿½ X, Y ï¿½ï¿½Ç¥ï¿½ï¿½ ï¿½Ìµï¿½ï¿½ï¿½Å²ï¿½ï¿½.
 //
 //-------------------------------------------------------------
 void cs_MoveCursor(int iPosX, int iPosY)
@@ -53,7 +64,7 @@ void cs_MoveCursor(int iPosX, int iPosY)
 	stCoord.X = iPosX;
 	stCoord.Y = iPosY;
 	//-------------------------------------------------------------
-	// ¿øÇÏ´Â À§Ä¡·Î Ä¿¼­¸¦ ÀÌµ¿½ÃÅ²´Ù.
+	// ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ Ä¿ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½ï¿½ï¿½Å²ï¿½ï¿½.
 	//-------------------------------------------------------------
 	SetConsoleCursorPosition(hConsole, stCoord);
 }
@@ -64,3 +75,35 @@ void cs_SetColor(CONSOLE_COLOR color)
 //	SetConsoleTextAttribute(hConsole, static_cast<std::underlying_type<CONSOLE_COLOR>::type>(color));
 	SetConsoleTextAttribute(hConsole, as_integer(color));
 }
+#else
+
+//--------------------------------------------
+// -------Linux---------------------------------
+//---------Info : $man console_codes
+//--------------------------------------------
+void cs_Initial(void)
+{
+    // Clear
+    printf("\033[H\033[J");
+    fflush(stdout);
+}
+
+void cs_MoveCursor(int iPosX, int iPosY)
+{
+    printf("\033[%d;%df",(iPosY+1),(iPosX+1));
+    fflush(stdout);
+}
+
+
+void cs_SetColor(CONSOLE_COLOR color)
+{
+//    SetConsoleTextAttribute(hConsole, as_integer(color));
+    printf("\x1b[%dm ",as_integer(color));
+//    printf("\x1b[32m");
+    fflush(stdout);
+//   http://lovelynoa.tistory.com/350
+}
+
+
+
+#endif

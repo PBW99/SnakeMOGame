@@ -15,6 +15,10 @@ typedef int socklen_t;
 #include <errno.h>
 #include <fcntl.h>
 #include <unistd.h>
+#include <stdarg.h>
+#include <cstdlib>
+#include <cstdio>
+#include <cstring>
 //typedef void* receiveBufer_t;
 typedef int SOCKET;
 const int NO_ERROR = 0;

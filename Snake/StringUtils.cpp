@@ -1,11 +1,10 @@
 #include "SnakePCH.h"
 
 
-#if !_WIN32
-extern const char** __argv;
+extern char** __argv;
 extern int __argc;
-int __argc;
-const char** __argv;
+
+#if !_WIN32
 void OutputDebugString( const char* inString )
 {
 	printf( "%s", inString );

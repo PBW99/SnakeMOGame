@@ -4,9 +4,8 @@
 class InputManager
 {
 private:
-	InputManager()
-	{
-	};
+	InputManager();
+	~InputManager();
 public:
 	static InputManager& GetIns()
 	{

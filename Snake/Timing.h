@@ -8,6 +8,7 @@ public:
 
 	float GetDeltaTime() const { return mDeltaTime; }
 
+
 	double GetTime() const;
 
 	float GetTimef() const
