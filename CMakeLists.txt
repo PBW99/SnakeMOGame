@@ -11,6 +11,8 @@ include_directories(SnakeServer)
 find_package(Curses REQUIRED)
 include_directories(${CURSES_INCLUDE_DIR})
 
+SET(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/bin)
+
 add_library(Snake
         Snake/Console.cpp
         Snake/Console.h

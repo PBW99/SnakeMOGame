@@ -4,7 +4,7 @@
 #ifndef __CONSOLE__
 #define __CONSOLE__
 
-//#define _WINCLIENT
+#define _WINCLIENT
 #ifdef _WINCLIENT
 enum class CONSOLE_COLOR
 {

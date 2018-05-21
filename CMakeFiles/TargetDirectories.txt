@@ -1,0 +1,5 @@
+/home/ubuntu/SnakeMOGame/CMakeFiles/Snake.dir
+/home/ubuntu/SnakeMOGame/CMakeFiles/rebuild_cache.dir
+/home/ubuntu/SnakeMOGame/CMakeFiles/SnakeServer.dir
+/home/ubuntu/SnakeMOGame/CMakeFiles/SnakeClient.dir
+/home/ubuntu/SnakeMOGame/CMakeFiles/edit_cache.dir
