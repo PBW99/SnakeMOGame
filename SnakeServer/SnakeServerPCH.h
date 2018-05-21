@@ -14,12 +14,15 @@
 #define DP(...)
 #endif
 
-#define DEBUGPRINT2
+
+//#define DEBUGPRINT2
 #ifdef DEBUGPRINT2
 #define DP2(...) cout<<__VA_ARGS__ << "\n";
 #else
 #define DP2(...)
 #endif
+
+#define LOG(...) printf(__VA_ARGS__);
 
 
 #include "FoodManager.h"
